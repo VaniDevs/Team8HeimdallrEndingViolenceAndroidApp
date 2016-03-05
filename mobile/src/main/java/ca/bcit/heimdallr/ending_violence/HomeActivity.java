@@ -28,8 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         // Setup the Tabs
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         // By using this method the tabs will be populated according to viewPager's count and
-        // with the name from the pagerAdapter getPageTitle()
-      //  tabLayout.setTabsFromPagerAdapter(pagerAdapter);
+
         // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
         tabLayout.setupWithViewPager(viewPager);
     }
