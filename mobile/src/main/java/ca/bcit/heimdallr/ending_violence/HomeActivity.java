@@ -57,7 +57,11 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Tab " + (position + 1);
+            if(position == 0){
+                return "Home";
+            } else {
+                return "Profile";
+            }
         }
     }
 }
