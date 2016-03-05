@@ -13,13 +13,14 @@
         android:src="@drawable/logo"/>
 
     <ImageButton
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="#FFFFFF"
-        android:id="@+id/imageButton"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:id="@+id/helpButton"
         android:layout_marginTop="40dp"
         android:src="@drawable/help"
-        android:layout_gravity="center" />
+        android:onClick="help"
+        android:layout_gravity="center"
+        android:nestedScrollingEnabled="false" />
 
 
 </FrameLayout>
