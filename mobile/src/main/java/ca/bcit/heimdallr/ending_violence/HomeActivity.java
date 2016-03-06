@@ -251,6 +251,7 @@ public class HomeActivity extends AppCompatActivity {
             String text;
             settings = thisClass.getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
             text = settings.getString("tokenVal", null);
+            System.out.println(text);
 
             String response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
                     "?api_token=" + text, json);

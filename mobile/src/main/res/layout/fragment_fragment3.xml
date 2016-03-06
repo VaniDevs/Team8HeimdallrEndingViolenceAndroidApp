@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="John Doe"
-                android:id="@+id/textView"
+                android:id="@+id/NameLabel"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
@@ -57,7 +57,15 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="604-234-1234"
-                android:id="@+id/textView2"
+                android:id="@+id/PhoneNumberLabel"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="5555 Vancouver Street "
+                android:id="@+id/AddressLabel"
                 android:layout_gravity="center_horizontal" />
 
             <LinearLayout
