@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -109,27 +112,48 @@ public class HomeActivity extends AppCompatActivity {
         public Fragment getItem(int pos) {
             switch (pos) {
 
-                case 0:
-                    return Fragment1.newInstance();
-                case 1:
-                    return Fragment2.newInstance();
-                default:
-                    return Fragment1.newInstance();
+                case 0: return Fragment1.newInstance();
+                case 1: return Fragment2.newInstance();
+                case 2: return Fragment3.newInstance();
+                default: return Fragment1.newInstance();
             }
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) {
                 return "Home";
+            } else if(position == 1){
+                return "Profile Edit";
             } else {
                 return "Profile";
             }
         }
     }
+
+    /* FRAGMENT 2
+    public void addChild(View v){
+        System.out.println("ADD CHILD");
+        View rootView = inflater.inflate(R.layout.activity_home,
+                container, false);
+        LinearLayout myLayout = (LinearLayout) rootView.findViewById(R.id.Children);
+
+        LayoutParams lp = new LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        for(int l=0; l<4; l++)
+        {
+            TextView a = new TextView(HomeActivity.this);
+            a.setTextSize(15);
+            a.setLayoutParams(lp);
+            a.setId(l);
+            a.setText((l + 1) + ": something");
+            myLayout.addView(a);
+        }
+
+    }
+    */
 }
