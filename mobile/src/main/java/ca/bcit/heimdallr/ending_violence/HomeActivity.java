@@ -22,6 +22,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -35,13 +37,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import org.json.JSONObject;
-import java.io.IOException;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -132,6 +127,31 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.LogOut) {
+            SharedPreferences preferences = getSharedPreferences("Preferences", 0);
+            preferences.edit().remove("tokenVal").commit();
+            Intent i = new Intent(this,LoginActivity.class);
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case 10:
@@ -202,15 +222,6 @@ public class HomeActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-
-    /* Fragment 1 */
-    //button click function for help button
-    public void help(View v) {
-        Intent intent = new Intent(this, CameraActivity_v2.class);
-        startActivity(intent);
-    }
-
-
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyPagerAdapter(FragmentManager fm) {
@@ -254,7 +265,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void prevThreatDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfPrevThreats);
-        System.out.println("HI");
         if(listOfPrevThreatsShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfPrevThreatsShow = false;
@@ -265,8 +275,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void saveProfile(View v){
-        System.out.println("SAVE");
-
         EditText FirstName = (EditText) findViewById(R.id.FirstName);
         String FirstNameString = FirstName.getText().toString();
 
@@ -339,11 +347,6 @@ public class HomeActivity extends AppCompatActivity {
             }
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Void v) {
-
-        }
     }
 
     public class updateProfile extends AsyncTask<Void, Void, Void> {
@@ -382,9 +385,5 @@ public class HomeActivity extends AppCompatActivity {
             return null;
         }
     }
-
-
-
-
 }
 

@@ -1,7 +1,6 @@
 package ca.bcit.heimdallr.ending_violence;
 
 import android.content.Intent;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;

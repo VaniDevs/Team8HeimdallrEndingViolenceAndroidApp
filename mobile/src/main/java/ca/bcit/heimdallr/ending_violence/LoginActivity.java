@@ -12,18 +12,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
-import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,16 +29,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -91,15 +83,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             startActivity(i);
         }
 
-        SharedPreferences settings;
-        String text;
-        settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
-        text = settings.getString("tokenVal", null);
-        if(text != null){
-            Intent i = new Intent(this,HomeActivity.class);
-            startActivity(i);
-        }
-
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -130,10 +113,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public boolean checkIfLoggedIn(){
-        SharedPreferences settings;
-        String text;
-        settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
-        text = settings.getString("tokenVal", null);
+        String text = getToken();
         if(text != null){
             return true;
         }
@@ -425,6 +405,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    public String getToken(){
+        SharedPreferences settings;
+        String text;
+        settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+        text = settings.getString("tokenVal", null);
+        return text;
     }
 
 }
