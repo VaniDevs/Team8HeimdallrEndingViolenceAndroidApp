@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -29,7 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -43,7 +44,6 @@ import java.util.concurrent.TimeUnit;
 public class HomeActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private LocationListener locationListener;
-    private TextView coordinate_textview;
     private Location loc;
 
     private ImageButton PrevThreatButton;
@@ -64,7 +64,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        coordinate_textview = (TextView)findViewById(R.id.coord);
 
         // Set a toolbar which will replace the action bar.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -159,7 +158,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void press(final View v){
+        Toast.makeText(HomeActivity.this, "Your help request has been sent to the helpers",
+                Toast.LENGTH_LONG).show();
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.beep);
+        mp.start();
         try {
+<<<<<<< HEAD
             coordinate_textview = (TextView) findViewById(R.id.coord);
             coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
 
@@ -167,6 +171,9 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, CameraActivity.class);
 
 
+=======
+            Intent intent = new Intent(this, CameraActivity_v2.class);
+>>>>>>> 2e2e5f98a697c96b578db3ad9e8166837515babc
             new IncidentsReport(loc.getLatitude(), loc.getLongitude()).execute((Void) null);
             startActivity(intent);
         }catch(Exception e){
@@ -208,13 +215,9 @@ public class HomeActivity extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Home Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
+                Action.TYPE_VIEW,
+                "Home Page",
                 Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://ca.bcit.heimdallr.ending_violence/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);

@@ -32,7 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/pen2"
-                android:layout_marginRight="20dp"
                 android:id="@+id/EditButton"
                 android:background="@color/background"
                 android:layout_gravity="right"
@@ -40,7 +39,8 @@
                 android:paddingTop="10dp"
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/imageView2"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="20dp" />
         </RelativeLayout>
 
         <ScrollView
@@ -115,8 +115,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Child"
+                        android:text="Susan Smith"
                         android:id="@+id/textView4" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Jack Smith"
+                        android:id="@+id/textView9" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -153,7 +159,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="PREV THREAT"
+                        android:text="Domestic Violence"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Emotional Abuse"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Physical Abuse"
                         android:visibility="visible" />
                 </LinearLayout>
 
@@ -181,7 +201,8 @@
             android:layout_alignParentEnd="true"
             android:paddingRight="50px"
             android:paddingLeft="50px"
-            android:layout_alignParentTop="true">
+            android:layout_alignParentTop="true"
+            android:paddingTop="20dp">
 
             <LinearLayout
                 android:orientation="vertical"
