@@ -32,15 +32,17 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
 
 public class HomeActivity extends AppCompatActivity {
     private LocationManager locationManager;
@@ -110,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
         System.out.println("PASS 0");
-        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -123,8 +125,8 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.println("PASS 2");
             }
 
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, locationListener);
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
             return;
         }
     }
@@ -137,9 +139,22 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    public void press(View v){
-        coordinate_textview = (TextView)findViewById(R.id.coord);
-        coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
+    public void press(final View v){
+        try {
+            coordinate_textview = (TextView) findViewById(R.id.coord);
+            coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
+            Intent intent = new Intent(this, CameraActivity.class);
+            startActivity(intent);
+        }catch(Exception e){
+            ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+            Runnable task = new Runnable() {
+                @Override
+                public void run() {
+                   press(v);
+                }
+            };
+            worker.schedule(task,2, TimeUnit.SECONDS);
+        }
     }
 
     @Override
@@ -182,15 +197,6 @@ public class HomeActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-
-
-    /* Fragment 1 */
-    //button click function for help button
-    public void help(View v) {
-        Intent intent = new Intent(this, CameraActivity.class);
-        startActivity(intent);
-    }
-
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyPagerAdapter(FragmentManager fm) {
@@ -200,7 +206,6 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int pos) {
             switch (pos) {
-
                 case 0: return Fragment1.newInstance();
                 case 1: return Fragment3.newInstance();
                 default: return Fragment1.newInstance();
