@@ -33,14 +33,13 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/pen"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
                 android:id="@+id/EditButton"
                 android:background="#FDCEA7"
                 android:layout_gravity="right"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:onClick="LoadEdit"
-                android:paddingTop="10dp" />
+                android:paddingTop="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true" />
         </RelativeLayout>
 
         <ScrollView
@@ -168,7 +167,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.tabstutorial.Fragment2"
-        android:id="@+id/PortfolioEdit">
+
+        android:id="@+id/PortfolioEdit"
+        android:visibility="invisible">
 
         <ScrollView
             android:layout_width="wrap_content"
