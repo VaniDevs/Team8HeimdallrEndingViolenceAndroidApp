@@ -22,6 +22,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -122,6 +124,31 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.LogOut) {
+            SharedPreferences preferences = getSharedPreferences("Preferences", 0);
+            preferences.edit().remove("tokenVal").commit();
+            Intent i = new Intent(this,LoginActivity.class);
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -240,8 +267,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public void prevThreatDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfPrevThreats);
-        System.out.println("HI");
         PrevThreatButton = (ImageButton)findViewById(R.id.PreviousThreatsButton);
+
         if(listOfPrevThreatsShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfPrevThreatsShow = false;
@@ -256,8 +283,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void saveProfile(View v){
-        System.out.println("SAVE");
-
         EditText FirstName = (EditText) findViewById(R.id.FirstName);
         String FirstNameString = FirstName.getText().toString();
 
@@ -329,11 +354,6 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.println("ERROR");
             }
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void v) {
-
         }
     }
 

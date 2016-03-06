@@ -43,4 +43,5 @@ public class APIRequest extends AppCompatActivity{
         return "{\"location\":\"" + locationY + " " +  locationX + "\""
                 + "}";
     }
+
 }
