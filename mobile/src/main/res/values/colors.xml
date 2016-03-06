@@ -3,4 +3,7 @@
     <color name="colorPrimary">#B2B2B2</color>
     <color name="colorPrimaryDark">#8A817C</color>
     <color name="colorAccent">#46B1C9</color>
+
+    <color name="background">#B2B2B2</color>
+    <color name="topPanel">#8A817C</color>
 </resources>

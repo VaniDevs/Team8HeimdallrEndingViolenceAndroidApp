@@ -22,8 +22,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,13 +38,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import org.json.JSONObject;
-import java.io.IOException;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -49,6 +45,10 @@ public class HomeActivity extends AppCompatActivity {
     private LocationListener locationListener;
     private TextView coordinate_textview;
     private Location loc;
+
+    private ImageButton PrevThreatButton;
+    private ImageButton ChildButton;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -56,9 +56,6 @@ public class HomeActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private boolean listOfChildShow = false;
     private boolean listOfPrevThreatsShow = false;
-
-    private HomeActivity thisClass = this;
-
 
     boolean portfolioShow = true;
 
@@ -96,14 +93,10 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
 
             @Override
-            public void onProviderEnabled(String provider) {
-
-            }
+            public void onProviderEnabled(String provider) {}
 
             @Override
             public void onProviderDisabled(String provider) {
@@ -129,6 +122,32 @@ public class HomeActivity extends AppCompatActivity {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
             return;
         }
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.LogOut) {
+            SharedPreferences preferences = getSharedPreferences("Preferences", 0);
+            preferences.edit().remove("tokenVal").commit();
+            Intent i = new Intent(this,LoginActivity.class);
+            startActivity(i);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -203,14 +222,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    /* Fragment 1 */
-    //button click function for help button
-    public void help(View v) {
-        Intent intent = new Intent(this, UploadActivity.class);
-        startActivity(intent);
-    }
-
-
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyPagerAdapter(FragmentManager fm) {
@@ -243,30 +254,36 @@ public class HomeActivity extends AppCompatActivity {
 
     public void childrenDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfChild);
+        ChildButton = (ImageButton)findViewById(R.id.listOfChildButton);
         if(listOfChildShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfChildShow = false;
+            ChildButton.setImageResource(R.drawable.down);
         } else {
             LL.setVisibility(LinearLayout.VISIBLE);
             listOfChildShow = true;
+            ChildButton.setImageResource(R.drawable.up);
         }
     }
 
     public void prevThreatDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfPrevThreats);
-        System.out.println("HI");
+        PrevThreatButton = (ImageButton)findViewById(R.id.PreviousThreatsButton);
+
         if(listOfPrevThreatsShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfPrevThreatsShow = false;
+            PrevThreatButton.setImageResource(R.drawable.down);
+
         } else {
             LL.setVisibility(LinearLayout.VISIBLE);
             listOfPrevThreatsShow = true;
+            PrevThreatButton.setImageResource(R.drawable.up);
+
         }
     }
 
     public void saveProfile(View v){
-        System.out.println("SAVE");
-
         EditText FirstName = (EditText) findViewById(R.id.FirstName);
         String FirstNameString = FirstName.getText().toString();
 
@@ -282,6 +299,7 @@ public class HomeActivity extends AppCompatActivity {
         try {
             new updateProfile(FirstNameString,LastNameString,AddressString, PhoneNumberString).execute((Void) null);
             determineShow();
+            new Fragment3().setText();
         } catch(Exception e){
 
         }
@@ -339,12 +357,9 @@ public class HomeActivity extends AppCompatActivity {
             }
             return null;
         }
-
-        @Override
-        protected void onPostExecute(Void v) {
-
-        }
     }
+
+
 
     public class updateProfile extends AsyncTask<Void, Void, Void> {
         String response;
@@ -382,9 +397,5 @@ public class HomeActivity extends AppCompatActivity {
             return null;
         }
     }
-
-
-
-
 }
 

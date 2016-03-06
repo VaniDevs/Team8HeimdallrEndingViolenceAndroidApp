@@ -4,22 +4,16 @@
     android:layout_height="match_parent"
     tools:context="com.example.tabstutorial.Fragment1"
     android:orientation="vertical">
-<!--
-    <ImageView
-        android:layout_width="121dp"
-        android:layout_height="121dp"
-        android:id="@+id/imageView"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center_horizontal|top"
-        android:src="@drawable/logo"/>
--->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Press For Help !"
         android:id="@+id/textView"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal|top"
+        android:paddingTop="10dp" />
 
     <ImageButton
         android:layout_width="170dp"
@@ -29,7 +23,8 @@
         android:src="@drawable/help"
         android:onClick="press"
         android:layout_gravity="center"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        android:background="@color/background"/>
 
     <TextView
         android:layout_width="202dp"

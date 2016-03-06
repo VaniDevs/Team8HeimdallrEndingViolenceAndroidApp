@@ -4,15 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.tabstutorial.Fragment2">
 
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo"
-        android:layout_marginTop="10dp" />
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,61 +11,87 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:fillViewport="false"
-        android:layout_below="@+id/imageView"
         android:layout_alignParentEnd="true"
         android:paddingRight="50px"
-        android:paddingLeft="50px">
+        android:paddingLeft="50px"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/logo"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name:"
+                android:id="@+id/textView2"
+                android:gravity="bottom" />
+
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/Name">
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="First Name"
+                android:ems="10"
+                android:id="@+id/FirstName"
+                android:background="@drawable/edittextstyle"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="10dp" />
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="First Name"
-                    android:ems="10"
-                    android:id="@+id/FirstName"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/edittextstyle"
-                    android:paddingLeft="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name:"
+                android:id="@+id/textView6"
+                android:gravity="bottom" />
 
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Last Name"
-                    android:ems="10"
-                    android:id="@+id/LastName"
-                    android:layout_weight="0.5"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Last Name"
+                android:ems="10"
+                android:id="@+id/LastName"
+                android:layout_weight="0.5"
+                android:paddingLeft="10dp"
+                android:background="@drawable/edittextstyle"
+                android:layout_marginBottom="10dp" />
 
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address:"
+                android:id="@+id/textView7" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/Address"
-                android:text="Address"
+                android:hint="Address"
                 android:ems="10"
                 android:paddingLeft="10dp"
                 android:background="@drawable/edittextstyle"
+                android:layout_above="@+id/PhoneNumber"
+                android:layout_alignParentStart="true"
                 android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone Number:"
+                android:id="@+id/textView8"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -82,105 +99,24 @@
                 android:inputType="phone"
                 android:ems="10"
                 android:id="@+id/PhoneNumber"
-                android:layout_alignTop="@+id/scrollView"
-                android:layout_alignEnd="@+id/imageView"
-                android:text="Phone Number"
+                android:hint="Phone Number"
                 android:paddingLeft="10dp"
-                android:background="@drawable/edittextstyle"/>
+                android:background="@drawable/edittextstyle"
+                android:layout_above="@+id/saveButton"
+                android:layout_alignStart="@+id/saveButton" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/ChildrenLayoutH"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Children"
-                    android:id="@+id/Children"
-                    android:layout_weight="0.9" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add"
-                    android:id="@+id/addChildButton"
-                    android:layout_weight=".005"
-                    android:onClick="addChild" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/ChildrenLayoutV"
-                android:longClickable="true"
-                android:layout_marginTop="10dp"></LinearLayout>
-
-            <TextView
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Protection Order"
-                android:id="@+id/ProtectionOrder"
-                android:layout_marginTop="10dp" />
-
-            <ScrollView
-                android:id="@+id/TextArea"
-                android:layout_width="wrap_content"
-                android:layout_height="100dip"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
-                    android:background="@drawable/edittextstyle"
-                    android:height="100dp"
-                    android:width="350dp" />
-
-            </ScrollView>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/PreviousThreatsH"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Previous Threats"
-                    android:id="@+id/PreviousThreats"
-                    android:layout_weight="0.9" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add"
-                    android:id="@+id/addPreviousThreats" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/PreviousThreatsV"
-                android:layout_marginTop="10dp"></LinearLayout>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
+                android:src="@drawable/save"
                 android:id="@+id/saveButton"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
-                android:onClick="saveProfile" />
+                android:onClick="saveProfile"
+                android:background="@color/background"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="152dp"/>
 
         </LinearLayout>
     </ScrollView>

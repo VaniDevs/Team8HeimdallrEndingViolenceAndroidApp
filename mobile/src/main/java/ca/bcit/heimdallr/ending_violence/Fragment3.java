@@ -1,9 +1,6 @@
 package ca.bcit.heimdallr.ending_violence;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,17 +8,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -36,6 +25,8 @@ public class Fragment3 extends Fragment {
      *
      * @return A new instance of fragment Fragment1.
      */
+
+    String response;
 
     public static Fragment3 newInstance() {
         return new Fragment3();
@@ -74,7 +65,6 @@ public class Fragment3 extends Fragment {
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Void> {
-        String response;
         protected Void doInBackground(Void... params){
             try {
                 System.out.println("STARTED 2");
@@ -96,21 +86,24 @@ public class Fragment3 extends Fragment {
 
         @Override
         protected void onPostExecute(Void v) {
-            try {
-                TextView name = (TextView)getActivity().findViewById(R.id.NameLabel);
-                TextView address = (TextView)getActivity().findViewById(R.id.AddressLabel);
-                TextView phone = (TextView)getActivity().findViewById(R.id.PhoneNumberLabel);
-
-                JSONObject userData = (JSONObject) new JSONObject(response).get("user_data");
-                System.out.println(userData);
-
-                name.setText(userData.get("first_name") + " " + userData.get("last_name"));
-                phone.setText((String)userData.get("phone"));
-                address.setText((String) userData.get("address"));
-            } catch(Exception e){
-
-            }
+            setText();
         }
+    }
+    public void setText(){
+        try {
 
+            TextView name = (TextView)getActivity().findViewById(R.id.NameLabel);
+            TextView address = (TextView)getActivity().findViewById(R.id.AddressLabel);
+            TextView phone = (TextView)getActivity().findViewById(R.id.PhoneNumberLabel);
+
+            JSONObject userData = (JSONObject) new JSONObject(response).get("user_data");
+            System.out.println(userData);
+
+            name.setText(userData.get("first_name") + " " + userData.get("last_name"));
+            phone.setText((String)userData.get("phone"));
+            address.setText((String) userData.get("address"));
+        } catch(Exception e){
+
+        }
     }
 }

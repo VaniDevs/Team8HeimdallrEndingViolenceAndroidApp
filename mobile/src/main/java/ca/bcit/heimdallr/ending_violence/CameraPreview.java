@@ -1,12 +1,12 @@
 package ca.bcit.heimdallr.ending_violence;
 
-import java.io.IOException;
 import android.content.Context;
 import android.hardware.Camera;
 import android.util.Log;
-import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.io.IOException;
 
 /**
  * Created by Kevin on 3/5/2016.
