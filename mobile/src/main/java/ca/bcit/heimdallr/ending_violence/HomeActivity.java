@@ -19,6 +19,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -35,6 +36,8 @@ public class HomeActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private boolean listOfChildShow = false;
+    private boolean listOfPrevThreatsShow = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,5 +195,28 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void childrenDrop(View v){
+        LinearLayout LL = (LinearLayout)findViewById(R.id.listOfChild);
+        if(listOfChildShow) {
+            LL.setVisibility(LinearLayout.GONE);
+            listOfChildShow = false;
+        } else {
+            LL.setVisibility(LinearLayout.VISIBLE);
+            listOfChildShow = true;
+        }
+    }
+
+    public void prevThreatDrop(View v){
+        LinearLayout LL = (LinearLayout)findViewById(R.id.listOfPrevThreats);
+        System.out.println("HI");
+        if(listOfPrevThreatsShow) {
+            LL.setVisibility(LinearLayout.GONE);
+            listOfPrevThreatsShow = false;
+        } else {
+            LL.setVisibility(LinearLayout.VISIBLE);
+            listOfPrevThreatsShow = true;
+        }
+    }
 
 }
+

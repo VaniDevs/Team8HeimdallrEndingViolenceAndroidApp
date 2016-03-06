@@ -5,21 +5,10 @@
     tools:context="com.example.tabstutorial.Fragment2">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Persons Name"
-        android:id="@+id/PersonName"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_below="@+id/PersonName"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo" />
 
@@ -53,7 +42,9 @@
                     android:text="First Name"
                     android:ems="10"
                     android:id="@+id/FirstName"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:background="@drawable/edittextstyle"
+                    android:paddingLeft="10dp" />
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -62,7 +53,8 @@
                     android:text="Last Name"
                     android:ems="10"
                     android:id="@+id/LastName"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:paddingLeft="10dp" />
 
             </LinearLayout>
 
