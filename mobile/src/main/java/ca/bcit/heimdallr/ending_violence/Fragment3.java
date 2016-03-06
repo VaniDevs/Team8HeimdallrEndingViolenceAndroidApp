@@ -1,5 +1,8 @@
 package ca.bcit.heimdallr.ending_violence;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,6 +43,14 @@ public class Fragment3 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment3,
                 container, false);
 
+        Button childButton = (Button) view.findViewById(R.id.EditButton);
+        childButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return view;
     }
+
 }

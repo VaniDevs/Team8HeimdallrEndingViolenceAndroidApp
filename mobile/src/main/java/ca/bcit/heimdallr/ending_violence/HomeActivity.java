@@ -2,7 +2,9 @@ package ca.bcit.heimdallr.ending_violence;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,12 +22,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HomeActivity extends AppCompatActivity {
     private LocationManager locationManager;
@@ -39,6 +52,8 @@ public class HomeActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private boolean listOfChildShow = false;
     private boolean listOfPrevThreatsShow = false;
+
+    private HomeActivity thisClass = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
         System.out.println("PASS 0");
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
+        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -103,8 +118,8 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.println("PASS 2");
             }
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, locationListener);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, locationListener);
+            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
             return;
         }
     }
@@ -182,23 +197,20 @@ public class HomeActivity extends AppCompatActivity {
             switch (pos) {
 
                 case 0: return Fragment1.newInstance();
-                case 1: return Fragment2.newInstance();
-                case 2: return Fragment3.newInstance();
+                case 1: return Fragment3.newInstance();
                 default: return Fragment1.newInstance();
             }
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             if (position == 0) {
                 return "Home";
-            } else if(position == 1){
-                return "Profile Edit";
             } else {
                 return "Profile";
             }
@@ -228,7 +240,48 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    public void saveProfile(View v){
+        System.out.println("SAVE");
+        EditText FirstName = (EditText) findViewById(R.id.FirstName);
+        String FirstNameString = FirstName.getText().toString();
 
+        String json = bowlingJson(FirstNameString);
+        try {
+            SharedPreferences settings;
+            String text;
+            settings = thisClass.getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+            text = settings.getString("tokenVal", null);
+
+            String response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                    "?api_token=" + text, json);
+            JSONObject mainObj = new JSONObject(response);
+            System.out.println(response);
+            System.out.println(mainObj.toString());
+        } catch(Exception e){
+
+        }
+
+        System.out.println("FINISH");
+
+    }
+
+    MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    OkHttpClient okHttpClient = new OkHttpClient();
+
+    String post(String url, String json) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = okHttpClient.newCall(request).execute();
+        return response.body().string();
+    }
+
+    String bowlingJson(String firstName) {
+        return  "{\"first_name\":\"" + firstName + "\"}";
+    }
 
 }
 
