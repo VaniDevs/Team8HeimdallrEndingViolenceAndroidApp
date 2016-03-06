@@ -3,7 +3,9 @@ package ca.bcit.heimdallr.ending_violence;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -29,6 +31,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,6 +77,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
 
     private LoginActivity thisClass = this;
+
+    EditText username;
+    EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,16 +224,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         return response.body().string();
     }
 
-    String bowlingJson(String player1, String player2) {
-        return "{'winCondition':'HIGH_SCORE',"
-                + "'name':'Bowling',"
-                + "'round':4,"
-                + "'lastSaved':1367702411696,"
-                + "'dateStarted':1367702378785,"
-                + "'players':["
-                + "{'name':'" + player1 + "','history':[10,8,6,7,8],'color':-13388315,'total':39},"
-                + "{'name':'" + player2 + "','history':[6,10,5,10,10],'color':-48060,'total':41}"
-                + "]}";
+    String bowlingJson(String email, String password) {
+        //System.out.println(email + " " + password);
+        return "{\"email\":\"" + email + "\","
+                + "\"password\":\"" + password + "\"}";
     }
 
     private boolean isEmailValid(String email) {
@@ -337,6 +338,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mEmail;
         private final String mPassword;
+        SharedPreferences sharedpreferences;
+
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -346,30 +349,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            /*
+            String json = bowlingJson(mEmail, mPassword);
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-            */
-            String json = bowlingJson("Jesse", "Jake");
-            try {
-                String response = post("http://www.roundsapp.com/post", json);
-                System.out.println(response);
-                Intent intent = new Intent(thisClass,HomeActivity.class);
-                startActivity(intent);
+                String response = post("https://quiet-falls-67309.herokuapp.com/api/auth/login", json);
+                JSONObject mainObj = new JSONObject(response);
+                System.out.println(mainObj.toString());
+
+                int codeVal = (int) mainObj.get("code");
+                String tokenVal = "";
+                if(codeVal == 200) {
+                    tokenVal = (String) mainObj.get("token");
+                    sharedpreferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString("tokenVal", tokenVal);
+                    editor.commit();
+                    Intent intent = new Intent(thisClass, HomeActivity.class);
+                    startActivity(intent);
+                }
             } catch(Exception e){
 
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
             }
 
             // TODO: register the new account here.

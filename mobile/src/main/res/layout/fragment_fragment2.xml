@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo"
+        android:layout_marginTop="10dp" />
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -44,7 +45,10 @@
                     android:id="@+id/FirstName"
                     android:layout_weight="0.5"
                     android:background="@drawable/edittextstyle"
-                    android:paddingLeft="10dp" />
+                    android:paddingLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp" />
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -54,9 +58,23 @@
                     android:ems="10"
                     android:id="@+id/LastName"
                     android:layout_weight="0.5"
-                    android:paddingLeft="10dp" />
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edittextstyle"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp" />
 
             </LinearLayout>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Address"
+                android:text="Address"
+                android:ems="10"
+                android:paddingLeft="10dp"
+                android:background="@drawable/edittextstyle"
+                android:layout_marginBottom="10dp" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -66,13 +84,16 @@
                 android:id="@+id/PhoneNumber"
                 android:layout_alignTop="@+id/scrollView"
                 android:layout_alignEnd="@+id/imageView"
-                android:text="Phone Number" />
+                android:text="Phone Number"
+                android:paddingLeft="10dp"
+                android:background="@drawable/edittextstyle"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/ChildrenLayoutH">
+                android:id="@+id/ChildrenLayoutH"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -96,23 +117,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/ChildrenLayoutV"
-                android:longClickable="true"></LinearLayout>
+                android:longClickable="true"
+                android:layout_marginTop="10dp"></LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Protection Order"
-                android:id="@+id/ProtectionOrder" />
+                android:id="@+id/ProtectionOrder"
+                android:layout_marginTop="10dp" />
 
             <ScrollView
                 android:id="@+id/TextArea"
                 android:layout_width="wrap_content"
-                android:layout_height="100dip">
+                android:layout_height="100dip"
+                android:layout_marginTop="10dp">
 
                 <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edittextstyle"
+                    android:height="100dp"
+                    android:width="350dp" />
 
             </ScrollView>
 
@@ -120,7 +148,9 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/PreviousThreatsH">
+                android:id="@+id/PreviousThreatsH"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -141,7 +171,8 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/PreviousThreatsV"></LinearLayout>
+                android:id="@+id/PreviousThreatsV"
+                android:layout_marginTop="10dp"></LinearLayout>
 
         </LinearLayout>
     </ScrollView>
