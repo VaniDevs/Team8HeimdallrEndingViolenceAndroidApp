@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -24,6 +25,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -56,6 +58,9 @@ public class HomeActivity extends AppCompatActivity {
     private boolean listOfPrevThreatsShow = false;
 
     private HomeActivity thisClass = this;
+
+
+    boolean portfolioShow = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +143,11 @@ public class HomeActivity extends AppCompatActivity {
         try {
             coordinate_textview = (TextView) findViewById(R.id.coord);
             coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
+
             Intent intent = new Intent(this, CameraActivity_v2.class);
+
+            new IncidentsReport(loc.getLatitude(),loc.getLongitude()).execute((Void) null);
+
             startActivity(intent);
         }catch(Exception e){
             ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
@@ -256,27 +265,67 @@ public class HomeActivity extends AppCompatActivity {
 
     public void saveProfile(View v){
         System.out.println("SAVE");
+
         EditText FirstName = (EditText) findViewById(R.id.FirstName);
         String FirstNameString = FirstName.getText().toString();
 
-        String json = bowlingJson(FirstNameString);
-        try {
-            SharedPreferences settings;
-            String text;
-            settings = thisClass.getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
-            text = settings.getString("tokenVal", null);
+        EditText LastName = (EditText) findViewById(R.id.LastName);
+        String LastNameString = LastName.getText().toString();
 
-            String response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
-                    "?api_token=" + text, json);
-            JSONObject mainObj = new JSONObject(response);
-            System.out.println(response);
-            System.out.println(mainObj.toString());
+        EditText Address = (EditText) findViewById(R.id.Address);
+        String AddressString = Address.getText().toString();
+
+        EditText PhoneNumber = (EditText) findViewById(R.id.PhoneNumber);
+        String PhoneNumberString = PhoneNumber.getText().toString();
+
+        try {
+            new fix(FirstNameString,LastNameString,AddressString, PhoneNumberString).execute((Void) null);
+            determineShow();
         } catch(Exception e){
 
         }
 
-        System.out.println("FINISH");
+    }
 
+    public class fix extends AsyncTask<Void, Void, Void> {
+        String response;
+        String firstNameAsyncString;
+        String lastNameAsyncString;
+        String address;
+        String phoneNumber;
+
+        public fix(String _firstNameAsyncString, String _lastNameAsyncString, String _address, String _phoneNumber){
+            firstNameAsyncString = _firstNameAsyncString;
+            lastNameAsyncString = _lastNameAsyncString;
+            address = _address;
+            phoneNumber = _phoneNumber;
+        }
+        protected Void doInBackground(Void... params){
+            try {
+                SharedPreferences settings;
+                String text;
+                String json = bowlingJson(firstNameAsyncString, lastNameAsyncString, address, phoneNumber);
+                System.out.println(json + "hi");
+
+                settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+                text = settings.getString("tokenVal", null);
+                System.out.println("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text);
+
+                response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text, json);
+                System.out.println(response + "RESPONSE");
+
+            } catch (Exception e){
+                System.out.println("ERROR");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+
+        }
     }
 
     MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -293,9 +342,78 @@ public class HomeActivity extends AppCompatActivity {
         return response.body().string();
     }
 
-    String bowlingJson(String firstName) {
-        return  "{\"first_name\":\"" + firstName + "\"}";
+    String bowlingJson(String firstName, String lastName, String addres, String phoneNumber) {
+
+        return "{\"first_name\":\"" + firstName + "\","
+                + "\"last_name\":\"" + lastName + "\","
+                + "\"address\":\"" + addres + "\","
+                + "\"phone\":\"" + phoneNumber + "\""
+                + "}";
     }
+
+    public void LoadEdit(View v){
+        determineShow();
+    }
+
+    public void determineShow(){
+
+        RelativeLayout PortfolioEdit = (RelativeLayout) findViewById(R.id.PortfolioEdit);
+        LinearLayout Portfolio = (LinearLayout) findViewById(R.id.Portfolio);
+
+        if(portfolioShow){
+            PortfolioEdit.setVisibility(RelativeLayout.VISIBLE);
+            Portfolio.setVisibility(LinearLayout.GONE);
+            portfolioShow = false;
+        } else {
+            PortfolioEdit.setVisibility(RelativeLayout.GONE);
+            Portfolio.setVisibility(LinearLayout.VISIBLE);
+            portfolioShow = true;
+        }
+    }
+
+    public class IncidentsReport extends AsyncTask<Void, Void, Void> {
+        String response;
+        double latitude;
+        double longtitude;
+
+        public IncidentsReport(double latitude, double longtitude){
+            this.latitude = latitude;
+            this.longtitude = longtitude;
+        }
+        protected Void doInBackground(Void... params){
+            try {
+                SharedPreferences settings;
+                String text;
+                String json = jsonIncidents(latitude, longtitude);
+                System.out.println(json + " hi");
+
+                settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+                text = settings.getString("tokenVal", null);
+                System.out.println("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text);
+
+                response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text, json);
+                System.out.println(response + "RESPONSE");
+
+            } catch (Exception e){
+                System.out.println("ERROR");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+
+        }
+    }
+
+    String jsonIncidents(double locationX, double locationY) {
+
+        return "{\"location\":\"" + locationY + " " +  locationX + "\""
+                + "}";
+    }
+
 
 }
 
