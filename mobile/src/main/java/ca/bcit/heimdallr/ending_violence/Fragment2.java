@@ -5,11 +5,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.view.ViewGroup.LayoutParams;
 
 
 /**
@@ -27,10 +27,6 @@ public class Fragment2 extends Fragment {
     LinearLayout childLayoutV;
     LinearLayout prevThreatsV;
     LinearLayout currentLL;
-
-    public static Fragment2 newInstance() {
-        return new Fragment2();
-    }
 
     public Fragment2() {
         // Required empty public constructor
@@ -74,7 +70,6 @@ public class Fragment2 extends Fragment {
                 currentLL.addView(createNewCheckBox());
             }
         });
-
         return view;
     }
 
