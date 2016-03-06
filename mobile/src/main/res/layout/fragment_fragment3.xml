@@ -31,15 +31,16 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pen"
+                android:src="@drawable/pen2"
                 android:layout_marginRight="20dp"
                 android:id="@+id/EditButton"
-                android:background="#FDCEA7"
+                android:background="@color/background"
                 android:layout_gravity="right"
                 android:onClick="LoadEdit"
                 android:paddingTop="10dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true" />
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imageView2"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
         <ScrollView
@@ -99,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/listOfChildButton"
                         android:src="@drawable/down"
-                        android:background="#FDCEA7"
+                        android:background="@color/background"
                         android:onClick="childrenDrop" />
                 </LinearLayout>
 
@@ -137,7 +138,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/PreviousThreatsButton"
                         android:src="@drawable/down"
-                        android:background="#FDCEA7"
+                        android:background="@color/background"
                         android:onClick="prevThreatDrop" />
                 </LinearLayout>
 
@@ -176,7 +177,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/scrollView"
             android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
             android:fillViewport="false"
             android:layout_alignParentEnd="true"
             android:paddingRight="50px"
@@ -272,16 +272,18 @@
                     android:layout_above="@+id/saveButton"
                     android:layout_alignStart="@+id/saveButton" />
 
-                <Button
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save"
+                    android:src="@drawable/save"
                     android:id="@+id/saveButton"
+                    android:layout_marginTop="10dp"
                     android:layout_gravity="center_horizontal"
                     android:onClick="saveProfile"
+                    android:background="@color/background"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="152dp" />
+                    android:layout_marginBottom="152dp"/>
 
             </LinearLayout>
         </ScrollView>
