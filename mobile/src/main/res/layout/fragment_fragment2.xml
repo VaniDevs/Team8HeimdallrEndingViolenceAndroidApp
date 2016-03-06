@@ -42,7 +42,9 @@
                     android:text="First Name"
                     android:ems="10"
                     android:id="@+id/FirstName"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:background="@drawable/edittextstyle"
+                    android:paddingLeft="10dp" />
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -51,7 +53,8 @@
                     android:text="Last Name"
                     android:ems="10"
                     android:id="@+id/LastName"
-                    android:layout_weight="0.5" />
+                    android:layout_weight="0.5"
+                    android:paddingLeft="10dp" />
 
             </LinearLayout>
 
