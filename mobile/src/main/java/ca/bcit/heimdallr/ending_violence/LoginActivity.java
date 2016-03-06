@@ -74,6 +74,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(checkIfLoggedIn()){
+            Intent i = new Intent(this,HomeActivity.class);
+            startActivity(i);
+        }
+
+        SharedPreferences settings;
+        String text;
+        settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+        text = settings.getString("tokenVal", null);
+        if(text != null){
+            Intent i = new Intent(this,HomeActivity.class);
+            startActivity(i);
+        }
+
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -101,6 +116,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    public boolean checkIfLoggedIn(){
+        SharedPreferences settings;
+        String text;
+        settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+        text = settings.getString("tokenVal", null);
+        if(text != null){
+            return true;
+        }
+        return false;
     }
 
     private void populateAutoComplete() {
