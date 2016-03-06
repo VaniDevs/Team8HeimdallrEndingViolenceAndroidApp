@@ -32,11 +32,11 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import org.json.JSONObject;
-import java.io.IOException;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -377,10 +377,10 @@ public class HomeActivity extends AppCompatActivity {
 
                 settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
                 text = settings.getString("tokenVal", null);
-                System.out.println("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                System.out.println("https://quiet-falls-67309.herokuapp.com/api/incident" +
                         "?api_token=" + text);
 
-                response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                response = post("https://quiet-falls-67309.herokuapp.com/api/incident" +
                         "?api_token=" + text, json);
                 System.out.println(response + "RESPONSE");
 
