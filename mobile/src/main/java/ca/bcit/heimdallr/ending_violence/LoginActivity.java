@@ -31,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -77,9 +78,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mLoginFormView;
 
     private LoginActivity thisClass = this;
-
-    EditText username;
-    EditText password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -353,6 +351,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 String response = post("https://quiet-falls-67309.herokuapp.com/api/auth/login", json);
                 JSONObject mainObj = new JSONObject(response);
+                System.out.println(response);
                 System.out.println(mainObj.toString());
 
                 int codeVal = (int) mainObj.get("code");
@@ -365,6 +364,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     editor.commit();
                     Intent intent = new Intent(thisClass, HomeActivity.class);
                     startActivity(intent);
+                } else {
+                    //Toast.makeText(thisClass, (String) mainObj.get("message"),
+                      //      Toast.LENGTH_LONG).show();
                 }
             } catch(Exception e){
 
