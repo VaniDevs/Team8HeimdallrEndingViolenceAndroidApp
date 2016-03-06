@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -163,17 +164,9 @@ public class HomeActivity extends AppCompatActivity {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.beep);
         mp.start();
         try {
-<<<<<<< HEAD
-            coordinate_textview = (TextView) findViewById(R.id.coord);
-            coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
 
 
             Intent intent = new Intent(this, CameraActivity.class);
-
-
-=======
-            Intent intent = new Intent(this, CameraActivity_v2.class);
->>>>>>> 2e2e5f98a697c96b578db3ad9e8166837515babc
             new IncidentsReport(loc.getLatitude(), loc.getLongitude()).execute((Void) null);
             startActivity(intent);
         }catch(Exception e){
