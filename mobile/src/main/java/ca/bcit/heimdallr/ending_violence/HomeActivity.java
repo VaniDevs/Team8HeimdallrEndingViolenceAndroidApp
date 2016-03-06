@@ -143,7 +143,11 @@ public class HomeActivity extends AppCompatActivity {
         try {
             coordinate_textview = (TextView) findViewById(R.id.coord);
             coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
-            Intent intent = new Intent(this, CameraActivity.class);
+
+
+            Intent intent = new Intent(this, CameraActivity_v2.class);
+
+
             new IncidentsReport(loc.getLatitude(), loc.getLongitude()).execute((Void) null);
             startActivity(intent);
         }catch(Exception e){
@@ -197,6 +201,15 @@ public class HomeActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+
+    /* Fragment 1 */
+    //button click function for help button
+    public void help(View v) {
+        Intent intent = new Intent(this, CameraActivity_v2.class);
+        startActivity(intent);
+    }
+
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
 
