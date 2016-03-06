@@ -16,8 +16,8 @@ public class Fragment3 extends Fragment {
      *
      * @return A new instance of fragment Fragment1.
      */
-    public static Fragment1 newInstance() {
-        return new Fragment1();
+    public static Fragment3 newInstance() {
+        return new Fragment3();
     }
 
     public Fragment3() {
