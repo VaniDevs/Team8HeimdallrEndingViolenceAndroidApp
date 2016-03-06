@@ -1,5 +1,6 @@
 package ca.bcit.heimdallr.ending_violence;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -100,8 +101,8 @@ public class HomeActivity extends AppCompatActivity {
     /* Fragment 1 */
     //button click function for help button
     public void help(View v) {
-        Toast.makeText(HomeActivity.this, "this is my Toast message!!! =)",
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
