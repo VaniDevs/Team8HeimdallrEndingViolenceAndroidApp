@@ -1,11 +1,14 @@
 package ca.bcit.heimdallr.ending_violence;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -13,16 +16,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.io.File;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -48,6 +55,12 @@ public class CameraActivity_v2 extends AppCompatActivity {
     private VideoView videoPreview;
     private Button btnCapturePicture, btnRecordVideo;
 
+    private TextView textViewResponse;
+
+    private static final int SELECT_VIDEO = 3;
+
+    private String selectedPath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +77,7 @@ public class CameraActivity_v2 extends AppCompatActivity {
         });
 
     }
-
-
+    /*
     private void previewCapturedImage() {
         try {
             // hide video preview
@@ -88,6 +100,53 @@ public class CameraActivity_v2 extends AppCompatActivity {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }*/
+    private void uploadVideo() {
+        class UploadVideo extends AsyncTask<Void, Void, String> {
+
+            ProgressDialog uploading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                uploading = ProgressDialog.show(CameraActivity_v2.this, "Uploading File", "Please wait...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                uploading.dismiss();
+                textViewResponse.setText(Html.fromHtml("<b>Uploaded at <a href='" + s + "'>" + s + "</a></b>"));
+                textViewResponse.setMovementMethod(LinkMovementMethod.getInstance());
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                Upload u = new Upload();
+                String msg = u.uploadVideo(selectedPath);
+                return msg;
+            }
+        }
+        UploadVideo uv = new UploadVideo();
+        uv.execute();
+    }
+
+
+    public String getPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
+        cursor.close();
+
+        return path;
     }
 
     private void recordVideo() {
@@ -108,7 +167,9 @@ public class CameraActivity_v2 extends AppCompatActivity {
         } else if (requestCode == CAMERA_CAPTURE_VIDEO_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // video successfully recorded
-                // preview the recorded video
+                Uri selectedImage = data.getData();
+                selectedPath = getPath(selectedImage);
+                uploadVideo();
                 previewVideo();
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled recording
