@@ -105,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         };
         System.out.println("PASS 0");
-        //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -118,8 +118,8 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.println("PASS 2");
             }
 
-            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, locationListener);
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 4000, 0, locationListener);
             return;
         }
     }
@@ -182,7 +182,7 @@ public class HomeActivity extends AppCompatActivity {
     /* Fragment 1 */
     //button click function for help button
     public void help(View v) {
-        Intent intent = new Intent(this, CameraActivity.class);
+        Intent intent = new Intent(this, CameraActivity_v2.class);
         startActivity(intent);
     }
 
