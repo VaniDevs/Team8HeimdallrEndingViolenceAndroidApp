@@ -28,10 +28,6 @@ public class Fragment2 extends Fragment {
     LinearLayout prevThreatsV;
     LinearLayout currentLL;
 
-    public static Fragment2 newInstance() {
-        return new Fragment2();
-    }
-
     public Fragment2() {
         // Required empty public constructor
     }
@@ -74,7 +70,6 @@ public class Fragment2 extends Fragment {
                 currentLL.addView(createNewCheckBox());
             }
         });
-
         return view;
     }
 

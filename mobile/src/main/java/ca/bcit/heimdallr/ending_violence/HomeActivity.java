@@ -24,12 +24,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -40,6 +43,10 @@ public class HomeActivity extends AppCompatActivity {
     private LocationListener locationListener;
     private TextView coordinate_textview;
     private Location loc;
+
+    private ImageButton PrevThreatButton;
+    private ImageButton ChildButton;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -47,9 +54,6 @@ public class HomeActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private boolean listOfChildShow = false;
     private boolean listOfPrevThreatsShow = false;
-
-    private HomeActivity thisClass = this;
-
 
     boolean portfolioShow = true;
 
@@ -117,6 +121,7 @@ public class HomeActivity extends AppCompatActivity {
             return;
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -189,15 +194,6 @@ public class HomeActivity extends AppCompatActivity {
         client.disconnect();
     }
 
-
-    /* Fragment 1 */
-    //button click function for help button
-    public void help(View v) {
-        Intent intent = new Intent(this, CameraActivity_v2.class);
-        startActivity(intent);
-    }
-
-
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyPagerAdapter(FragmentManager fm) {
@@ -230,24 +226,32 @@ public class HomeActivity extends AppCompatActivity {
 
     public void childrenDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfChild);
+        ChildButton = (ImageButton)findViewById(R.id.listOfChildButton);
         if(listOfChildShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfChildShow = false;
+            ChildButton.setImageResource(R.drawable.down);
         } else {
             LL.setVisibility(LinearLayout.VISIBLE);
             listOfChildShow = true;
+            ChildButton.setImageResource(R.drawable.up);
         }
     }
 
     public void prevThreatDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfPrevThreats);
         System.out.println("HI");
+        PrevThreatButton = (ImageButton)findViewById(R.id.PreviousThreatsButton);
         if(listOfPrevThreatsShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfPrevThreatsShow = false;
+            PrevThreatButton.setImageResource(R.drawable.down);
+
         } else {
             LL.setVisibility(LinearLayout.VISIBLE);
             listOfPrevThreatsShow = true;
+            PrevThreatButton.setImageResource(R.drawable.up);
+
         }
     }
 
@@ -332,6 +336,8 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
+
+
 
     public class updateProfile extends AsyncTask<Void, Void, Void> {
         String response;
