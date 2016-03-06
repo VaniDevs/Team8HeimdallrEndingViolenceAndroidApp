@@ -47,7 +47,7 @@ public class CameraActivity_v2 extends AppCompatActivity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
-    private static final String IMAGE_DIRECTORY_NAME = "Hello Camera";
+    private static final String IMAGE_DIRECTORY_NAME = "Media";
 
     private Uri fileUri; // file url to store image/video
 
@@ -167,11 +167,15 @@ public class CameraActivity_v2 extends AppCompatActivity {
         } else if (requestCode == CAMERA_CAPTURE_VIDEO_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // video successfully recorded
+                // preview the recorded video
                 Uri selectedImage = data.getData();
+                System.out.println(selectedImage);
                 selectedPath = getPath(selectedImage);
+
+                //previewVideo();
                 uploadVideo();
-                previewVideo();
-            } else if (resultCode == RESULT_CANCELED) {
+            }
+            else if(resultCode == RESULT_CANCELED){
                 // user cancelled recording
                 Toast.makeText(getApplicationContext(),
                         "User cancelled video recording", Toast.LENGTH_SHORT)
@@ -236,7 +240,7 @@ public class CameraActivity_v2 extends AppCompatActivity {
         // External sdcard location
         File mediaStorageDir = new File(
                 Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES),
                 IMAGE_DIRECTORY_NAME);
 
         // Create the storage directory if it does not exist

@@ -145,7 +145,7 @@ public class HomeActivity extends AppCompatActivity {
             coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
 
 
-            Intent intent = new Intent(this, CameraActivity_v2.class);
+            Intent intent = new Intent(this, CameraActivity.class);
 
 
             new IncidentsReport(loc.getLatitude(), loc.getLongitude()).execute((Void) null);
@@ -206,7 +206,7 @@ public class HomeActivity extends AppCompatActivity {
     /* Fragment 1 */
     //button click function for help button
     public void help(View v) {
-        Intent intent = new Intent(this, CameraActivity_v2.class);
+        Intent intent = new Intent(this, UploadActivity.class);
         startActivity(intent);
     }
 

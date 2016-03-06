@@ -1,5 +1,6 @@
 package ca.bcit.heimdallr.ending_violence;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -16,7 +17,7 @@ import java.net.URL;
  * Created by Kevin on 3/6/2016.
  */
 public class Upload {
-    public static final String UPLOAD_URL= "http://simplifiedcoding.16mb.com/VideoUpload/upload.php";
+    public static String UPLOAD_URL= "http://quiet-falls-67309.herokuapp/api/incident/media?api_token=";
 
     private int serverResponseCode;
 
@@ -39,6 +40,8 @@ public class Upload {
         }
 
         try {
+
+
             FileInputStream fileInputStream = new FileInputStream(sourceFile);
             URL url = new URL(UPLOAD_URL);
             conn = (HttpURLConnection) url.openConnection();
@@ -49,11 +52,11 @@ public class Upload {
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("ENCTYPE", "multipart/form-data");
             conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            conn.setRequestProperty("myFile", fileName);
+            conn.setRequestProperty("media", fileName);
             dos = new DataOutputStream(conn.getOutputStream());
 
             dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"myFile\";filename=\"" + fileName + "\"" + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"media\";filename=\"" + fileName + "\"" + lineEnd);
             dos.writeBytes(lineEnd);
 
             bytesAvailable = fileInputStream.available();

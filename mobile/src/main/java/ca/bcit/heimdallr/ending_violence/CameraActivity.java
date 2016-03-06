@@ -31,21 +31,16 @@ public class CameraActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
+
         ActivityContext = this;
 
-        Button btnRecord = (Button) findViewById(R.id.btnRecord);
-        btnRecord.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View arg) {
-                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                startActivityForResult(intent, CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);
+        startActivityForResult(intent, CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
 
 
-            }
-        });
     }
 
 
@@ -56,7 +51,7 @@ public class CameraActivity extends AppCompatActivity {
     private static File getOutputMediaFile(int type) {
         //We create a new file in the pictures directory
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "MyCameraVideo");
+                Environment.DIRECTORY_MOVIES), "Media");
 
         //Create a file directory if it doesn't exist
         if (!mediaStorageDir.exists()) {
@@ -87,6 +82,8 @@ public class CameraActivity extends AppCompatActivity {
                 // Video captured and saved to fileUri specified in the Intent
                 Toast.makeText(this, "Video saved to:\n" +
                         data.getData(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, UploadActivity.class);
+                startActivity(intent);
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the video capture
                 Log.d("Test", "User cancelled the video capture.");
