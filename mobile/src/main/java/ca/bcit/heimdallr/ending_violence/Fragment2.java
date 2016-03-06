@@ -48,35 +48,4 @@ public class Fragment2 extends Fragment {
         return view;
     }
 
-    private LinearLayout createNewLinearLayoutH(){
-        LinearLayout LL = new LinearLayout(getActivity());
-        final LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        LL.setLayoutParams(lparams);
-        LL.setOrientation(LinearLayout.HORIZONTAL);
-        LL.setId(View.generateViewId());
-        currentLL = LL;
-        return LL;
-    }
-
-    private EditText createNewTextView(String text, boolean full) {
-        int x;
-        if(!full){
-            x = ((getActivity().getResources().getDisplayMetrics().widthPixels)/2 - 50);
-        } else {
-            x = (getActivity().getResources().getDisplayMetrics().widthPixels);
-        }
-        final LayoutParams lparams = new LayoutParams(x, LayoutParams.MATCH_PARENT);
-        final EditText editText = new EditText(getActivity());
-        editText.setText(text);
-        editText.setLayoutParams(lparams);
-        return editText;
-    }
-
-    private CheckBox createNewCheckBox(){
-        CheckBox cb = new CheckBox(getActivity());
-        final LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        cb.setLayoutParams(lparams);
-        cb.setText("Access To Weapons?");
-        return cb;
-    }
 }

@@ -298,6 +298,7 @@ public class HomeActivity extends AppCompatActivity {
         try {
             new updateProfile(FirstNameString,LastNameString,AddressString, PhoneNumberString).execute((Void) null);
             determineShow();
+            new Fragment3().setText();
         } catch(Exception e){
 
         }

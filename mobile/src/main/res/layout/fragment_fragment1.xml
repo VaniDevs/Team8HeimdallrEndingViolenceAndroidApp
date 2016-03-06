@@ -23,7 +23,8 @@
         android:src="@drawable/help"
         android:onClick="press"
         android:layout_gravity="center"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        android:background="@color/background"/>
 
     <TextView
         android:layout_width="202dp"
