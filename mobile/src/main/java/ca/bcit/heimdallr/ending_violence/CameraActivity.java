@@ -1,6 +1,7 @@
 package ca.bcit.heimdallr.ending_violence;
 
 import android.content.Intent;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CameraActivity extends AppCompatActivity {
+
 
     public static final int MEDIA_TYPE_VIDEO = 2;
     private Uri fileUri;

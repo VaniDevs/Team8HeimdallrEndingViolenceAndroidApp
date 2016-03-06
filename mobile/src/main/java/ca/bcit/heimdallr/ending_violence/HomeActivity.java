@@ -1,5 +1,6 @@
 package ca.bcit.heimdallr.ending_violence;
 
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -159,6 +160,15 @@ public class HomeActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+
+
+    /* Fragment 1 */
+    //button click function for help button
+    public void help(View v) {
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
