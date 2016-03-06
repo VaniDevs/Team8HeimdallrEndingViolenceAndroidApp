@@ -4,6 +4,11 @@
     <string name="title_activity_camera_activity_v2">CameraActivity_v2</string>
     <string name="title_activity_login">Log In</string>
 
+
+    <string name="btnTakePicture">Capture Image</string>
+    <string name="btnRecordVideo">Record Video</string>
+    <string name="or">(or)</string>
+    <string name="btnUploadToServer">Upload to Server</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -16,4 +21,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_upload">UploadActivity</string>
 </resources>

@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -163,7 +164,9 @@ public class HomeActivity extends AppCompatActivity {
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.beep);
         mp.start();
         try {
-            Intent intent = new Intent(this, CameraActivity_v2.class);
+
+
+            Intent intent = new Intent(this, CameraActivity.class);
             new IncidentsReport(loc.getLatitude(), loc.getLongitude()).execute((Void) null);
             startActivity(intent);
         }catch(Exception e){
@@ -213,6 +216,7 @@ public class HomeActivity extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
 
