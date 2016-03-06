@@ -105,16 +105,18 @@
                 android:layout_above="@+id/saveButton"
                 android:layout_alignStart="@+id/saveButton" />
 
-            <Button
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:src="@drawable/save"
                 android:id="@+id/saveButton"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:onClick="saveProfile"
+                android:background="@color/background"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="152dp" />
+                android:layout_marginBottom="152dp"/>
 
         </LinearLayout>
     </ScrollView>
