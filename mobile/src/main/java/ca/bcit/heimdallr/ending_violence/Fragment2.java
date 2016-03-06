@@ -45,31 +45,6 @@ public class Fragment2 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fragment2,
                 container, false);
 
-        /* Add Child */
-        childLayoutV = (LinearLayout) view.findViewById(R.id.ChildrenLayoutV);
-
-        Button childButton = (Button) view.findViewById(R.id.addChildButton);
-        childButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                childLayoutV.addView(createNewLinearLayoutH());
-                currentLL.addView(createNewTextView("Name", false));
-                currentLL.addView(createNewTextView("Phone Number", false));
-            }
-        });
-
-        /* Add PrevThreats */
-        prevThreatsV = (LinearLayout) view.findViewById(R.id.PreviousThreatsV);
-        Button prevButton = (Button) view.findViewById(R.id.addPreviousThreats);
-        prevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prevThreatsV.addView(createNewTextView("Name", true));
-                prevThreatsV.addView(createNewLinearLayoutH());
-                currentLL.addView(createNewTextView("Licence Plate",false));
-                currentLL.addView(createNewCheckBox());
-            }
-        });
         return view;
     }
 
