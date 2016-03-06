@@ -18,9 +18,16 @@
         android:id="@+id/helpButton"
         android:layout_marginTop="40dp"
         android:src="@drawable/help"
-        android:onClick="help"
+        android:onClick="press"
         android:layout_gravity="center"
         android:nestedScrollingEnabled="false" />
+
+    <TextView
+        android:layout_width="202dp"
+        android:layout_height="104dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/coord"
+        android:layout_gravity="center_horizontal|bottom" />
 
 
 </FrameLayout>
