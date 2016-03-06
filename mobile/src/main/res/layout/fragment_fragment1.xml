@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.tabstutorial.Fragment1">
+
+    <ImageView
+        android:layout_width="121dp"
+        android:layout_height="121dp"
+        android:id="@+id/imageView"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/logo"/>
+
+    <ImageButton
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:id="@+id/helpButton"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/help"
+        android:onClick="help"
+        android:layout_gravity="center"
+        android:nestedScrollingEnabled="false" />
+
+
+</FrameLayout>

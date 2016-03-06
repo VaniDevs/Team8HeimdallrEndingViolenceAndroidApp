@@ -1,122 +1,135 @@
 package ca.bcit.heimdallr.ending_violence;
 
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
-import com.amazonaws.services.s3.AmazonS3Client;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class HomeActivity extends AppCompatActivity {
 
-    public static final int MEDIA_TYPE_VIDEO = 2;
-    private Uri fileUri;
-    private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
-
-
-    public static VideocameraActivity ActivityContext =null;
-    public static TextView output;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        ActivityContext = this;
 
-        Button btnRecod = (Button)findViewById(R.id.recording);
-        btnRecord.setOnClickListener(new Button.OnClickListener() {
-            Intent record
-        })
 
-        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        // Set a toolbar which will replace the action bar.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);  // create a file to save the video
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);  // set the image file name
+        // Setup the viewPager
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
 
-        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1); // set the video image quality to high
+        // Setup the Tabs
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        // By using this method the tabs will be populated according to viewPager's count and
 
-        // start the Video Capture Intent
-        startActivityForResult(intent, CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE);
+        // This method ensures that tab selection events update the ViewPager and page changes update the selected tab.
+        tabLayout.setupWithViewPager(viewPager);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
-
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                // Image captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Image saved to:\n" +
-                        data.getData(), Toast.LENGTH_LONG).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                // User cancelled the image capture
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Home Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://ca.bcit.heimdallr.ending_violence/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Home Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://ca.bcit.heimdallr.ending_violence/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+
+
+    /* Fragment 1 */
+    //button click function for help button
+    public void help(View v) {
+        Toast.makeText(HomeActivity.this, "this is my Toast message!!! =)",
+                Toast.LENGTH_LONG).show();
+    }
+
+    private class MyPagerAdapter extends FragmentStatePagerAdapter {
+
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int pos) {
+            switch (pos) {
+
+                case 0:
+                    return Fragment1.newInstance();
+                case 1:
+                    return Fragment2.newInstance();
+                default:
+                    return Fragment1.newInstance();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position == 0) {
+                return "Home";
             } else {
-                // Image capture failed, advise user
-            }
-        }
-
-        if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                // Video captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Video saved to:\n" +
-                        data.getData(), Toast.LENGTH_LONG).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                // User cancelled the video capture
-            } else {
-                // Video capture failed, advise user
+                return "Profile";
             }
         }
     }
-
-
-    private static Uri getOutputMediaFileUri(int type){
-        return Uri.fromFile(getOutputMediaFile(type));
-    }
-
-    private static File getOutputMediaFile(int type){
-        //We create a new file in the pictures directory
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES),"MyCameraApp");
-
-        //Create a file directory if it doesn't exist
-        if(! mediaStorageDir.exists()){
-            if(! mediaStorageDir.mkdirs()){
-                Log.d("MyCameraApp", "failed to create directory");
-                return null;
-            }
-        }
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile;
-        if(type == MEDIA_TYPE_VIDEO){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "VID_" + timeStamp + ".mp4");
-        }
-        else if(type == MEDIA_TYPE_IMAGE){
-            mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_" + timeStamp + ".jpeg");
-        }
-        else {
-            return null;
-        }
-
-        return mediaFile;
-    }
-    /*
-    static final int REQUEST_VIDEO_CAPTURE = 1;
-
-    private void dispatchTakeVideoIntent(){
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        if(takeVideoIntent.resolveActivity(getPackageManager())!= null){
-            startActivityForResult(takeVideoIntent,REQUEST_VIDEO_CAPTURE);
-        }
-    }
-    */
-
 }
