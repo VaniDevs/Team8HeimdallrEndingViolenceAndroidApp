@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -69,13 +70,6 @@ public class Fragment3 extends Fragment {
         System.out.println("STARTED");
         new UserLoginTask().execute((Void) null);
 
-        Button childButton = (Button) view.findViewById(R.id.EditButton);
-        childButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         return view;
     }
 

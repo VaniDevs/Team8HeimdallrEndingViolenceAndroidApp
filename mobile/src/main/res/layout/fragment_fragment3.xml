@@ -6,144 +6,346 @@
     android:orientation="vertical">
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/Portfolio">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/portfolio">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/logo"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:id="@+id/EditButton"
+                android:layout_gravity="right"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:onClick="LoadEdit" />
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView2"
+            android:fillViewport="false"
+            android:paddingLeft="50px"
+            android:paddingRight="50px"
+            android:onClick="childrenDrop">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="John Doe"
+                    android:id="@+id/NameLabel"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="604-234-1234"
+                    android:id="@+id/PhoneNumberLabel"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="5555 Vancouver Street "
+                    android:id="@+id/AddressLabel"
+                    android:layout_gravity="center_horizontal" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Children"
+                        android:id="@+id/textView3"
+                        android:layout_weight="0.5"
+                        android:gravity="center_vertical" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/listOfChildButton"
+                        android:src="@drawable/arrow"
+                        android:onClick="childrenDrop" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/listOfChild"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="PENIS"
+                        android:id="@+id/textView4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Previous Threats"
+                        android:id="@+id/textView5"
+                        android:gravity="center_vertical"
+                        android:layout_weight="0.5" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageButton"
+                        android:src="@drawable/arrow"
+                        android:onClick="prevThreatDrop" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/listOfPrevThreats"
+                    android:visibility="invisible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="PREV THREAT"
+                        android:visibility="visible" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    </LinearLayout>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.tabstutorial.Fragment2"
+        android:id="@+id/PortfolioEdit"
+        android:visibility="invisible">
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/imageView"
+            android:layout_centerHorizontal="true"
             android:src="@drawable/logo"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="10dp" />
 
-        <Button
+        <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:id="@+id/EditButton"
-            android:layout_gravity="right"
-            android:layout_alignParentTop="true"
+            android:id="@+id/scrollView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:fillViewport="false"
+            android:layout_below="@+id/imageView"
             android:layout_alignParentEnd="true"
-            android:onClick="LoadEdit" />
+            android:paddingRight="50px"
+            android:paddingLeft="50px">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/Name">
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="First Name"
+                        android:ems="10"
+                        android:id="@+id/FirstName"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/edittextstyle"
+                        android:paddingLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:text="Last Name"
+                        android:ems="10"
+                        android:id="@+id/LastName"
+                        android:layout_weight="0.5"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/edittextstyle"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp" />
+
+                </LinearLayout>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Address"
+                    android:text="Address"
+                    android:ems="10"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edittextstyle"
+                    android:layout_marginBottom="10dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:ems="10"
+                    android:id="@+id/PhoneNumber"
+                    android:layout_alignTop="@+id/scrollView"
+                    android:layout_alignEnd="@+id/imageView"
+                    android:text="Phone Number"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/edittextstyle"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ChildrenLayoutH"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Children"
+                        android:id="@+id/Children"
+                        android:layout_weight="0.9" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add"
+                        android:id="@+id/addChildButton"
+                        android:layout_weight=".005"
+                        android:onClick="addChild" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/ChildrenLayoutV"
+                    android:longClickable="true"
+                    android:layout_marginTop="10dp"></LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Protection Order"
+                    android:id="@+id/ProtectionOrder"
+                    android:layout_marginTop="10dp" />
+
+                <ScrollView
+                    android:id="@+id/TextArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dip"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="10dp"
+                        android:background="@drawable/edittextstyle"
+                        android:height="100dp"
+                        android:width="350dp" />
+
+                </ScrollView>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/PreviousThreatsH"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Previous Threats"
+                        android:id="@+id/PreviousThreats"
+                        android:layout_weight="0.9" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add"
+                        android:id="@+id/addPreviousThreats" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/PreviousThreatsV"
+                    android:layout_marginTop="10dp"></LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:id="@+id/saveButton"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="saveProfile" />
+
+            </LinearLayout>
+        </ScrollView>
+
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView2"
-        android:fillViewport="false"
-        android:paddingLeft="50px"
-        android:paddingRight="50px"
-        android:onClick="childrenDrop">
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="John Doe"
-                android:id="@+id/NameLabel"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="604-234-1234"
-                android:id="@+id/PhoneNumberLabel"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="5555 Vancouver Street "
-                android:id="@+id/AddressLabel"
-                android:layout_gravity="center_horizontal" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Children"
-                    android:id="@+id/textView3"
-                    android:layout_weight="0.5"
-                    android:gravity="center_vertical" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/listOfChildButton"
-                    android:src="@drawable/arrow"
-                    android:onClick="childrenDrop" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/listOfChild"
-                android:visibility="invisible">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="PENIS"
-                    android:id="@+id/textView4" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Previous Threats"
-                    android:id="@+id/textView5"
-                    android:gravity="center_vertical"
-                    android:layout_weight="0.5" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageButton"
-                    android:src="@drawable/arrow"
-                    android:onClick="prevThreatDrop" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/listOfPrevThreats"
-                android:visibility="invisible">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="PREV THREAT"
-                    android:visibility="visible" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
 </LinearLayout>
+
+
