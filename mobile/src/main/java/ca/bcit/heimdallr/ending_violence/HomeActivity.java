@@ -144,6 +144,7 @@ public class HomeActivity extends AppCompatActivity {
             coordinate_textview = (TextView) findViewById(R.id.coord);
             coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
             Intent intent = new Intent(this, CameraActivity.class);
+            new IncidentsReport(loc.getLatitude(),loc.getLongitude()).execute((Void) null);
             startActivity(intent);
         }catch(Exception e){
             ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
@@ -301,6 +302,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
                         "?api_token=" + text, json);
+                System.out.println(response + "RESPONSE");
 
             } catch (Exception e){
                 System.out.println("ERROR");
@@ -356,6 +358,50 @@ public class HomeActivity extends AppCompatActivity {
             portfolioShow = true;
         }
     }
+
+    public class IncidentsReport extends AsyncTask<Void, Void, Void> {
+        String response;
+        double latitude;
+        double longtitude;
+
+        public IncidentsReport(double latitude, double longtitude){
+            this.latitude = latitude;
+            this.longtitude = longtitude;
+        }
+        protected Void doInBackground(Void... params){
+            try {
+                SharedPreferences settings;
+                String text;
+                String json = jsonIncidents(latitude, longtitude);
+                System.out.println(json + " hi");
+
+                settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+                text = settings.getString("tokenVal", null);
+                System.out.println("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text);
+
+                response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text, json);
+                System.out.println(response + "RESPONSE");
+
+            } catch (Exception e){
+                System.out.println("ERROR");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+
+        }
+    }
+
+    String jsonIncidents(double locationX, double locationY) {
+
+        return "{\"location\":\"" + locationY + " " +  locationX + "\""
+                + "}";
+    }
+
 
 }
 
