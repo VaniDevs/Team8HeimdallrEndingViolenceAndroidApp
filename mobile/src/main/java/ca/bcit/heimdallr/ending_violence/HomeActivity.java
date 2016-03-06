@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,6 +45,10 @@ public class HomeActivity extends AppCompatActivity {
     private LocationListener locationListener;
     private TextView coordinate_textview;
     private Location loc;
+
+    private ImageButton PrevThreatButton;
+    private ImageButton ChildButton;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -51,9 +56,6 @@ public class HomeActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private boolean listOfChildShow = false;
     private boolean listOfPrevThreatsShow = false;
-
-    private HomeActivity thisClass = this;
-
 
     boolean portfolioShow = true;
 
@@ -91,14 +93,10 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
 
             @Override
-            public void onProviderEnabled(String provider) {
-
-            }
+            public void onProviderEnabled(String provider) {}
 
             @Override
             public void onProviderDisabled(String provider) {
@@ -125,6 +123,7 @@ public class HomeActivity extends AppCompatActivity {
             return;
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -254,23 +253,32 @@ public class HomeActivity extends AppCompatActivity {
 
     public void childrenDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfChild);
+        ChildButton = (ImageButton)findViewById(R.id.listOfChildButton);
         if(listOfChildShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfChildShow = false;
+            ChildButton.setImageResource(R.drawable.down);
         } else {
             LL.setVisibility(LinearLayout.VISIBLE);
             listOfChildShow = true;
+            ChildButton.setImageResource(R.drawable.up);
         }
     }
 
     public void prevThreatDrop(View v){
         LinearLayout LL = (LinearLayout)findViewById(R.id.listOfPrevThreats);
+        PrevThreatButton = (ImageButton)findViewById(R.id.PreviousThreatsButton);
+
         if(listOfPrevThreatsShow) {
             LL.setVisibility(LinearLayout.GONE);
             listOfPrevThreatsShow = false;
+            PrevThreatButton.setImageResource(R.drawable.down);
+
         } else {
             LL.setVisibility(LinearLayout.VISIBLE);
             listOfPrevThreatsShow = true;
+            PrevThreatButton.setImageResource(R.drawable.up);
+
         }
     }
 
@@ -348,6 +356,8 @@ public class HomeActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 
     public class updateProfile extends AsyncTask<Void, Void, Void> {
         String response;
