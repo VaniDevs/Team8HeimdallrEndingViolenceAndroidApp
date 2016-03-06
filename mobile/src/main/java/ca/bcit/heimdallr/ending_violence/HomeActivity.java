@@ -26,6 +26,8 @@ public class HomeActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    private boolean listOfChildShow = false;
+    private boolean listOfPrevThreatsShow = false;
 
 
     @Override
@@ -136,24 +138,29 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    /* FRAGMENT 2
-    public void addChild(View v){
-        System.out.println("ADD CHILD");
-        View rootView = inflater.inflate(R.layout.activity_home,
-                container, false);
-        LinearLayout myLayout = (LinearLayout) rootView.findViewById(R.id.Children);
-
-        LayoutParams lp = new LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        for(int l=0; l<4; l++)
-        {
-            TextView a = new TextView(HomeActivity.this);
-            a.setTextSize(15);
-            a.setLayoutParams(lp);
-            a.setId(l);
-            a.setText((l + 1) + ": something");
-            myLayout.addView(a);
+    public void childrenDrop(View v){
+        LinearLayout LL = (LinearLayout)findViewById(R.id.listOfChild);
+        if(listOfChildShow) {
+            LL.setVisibility(LinearLayout.GONE);
+            listOfChildShow = false;
+        } else {
+            LL.setVisibility(LinearLayout.VISIBLE);
+            listOfChildShow = true;
         }
-
     }
-    */
+
+    public void prevThreatDrop(View v){
+        LinearLayout LL = (LinearLayout)findViewById(R.id.listOfPrevThreats);
+        System.out.println("HI");
+        if(listOfPrevThreatsShow) {
+            LL.setVisibility(LinearLayout.GONE);
+            listOfPrevThreatsShow = false;
+        } else {
+            LL.setVisibility(LinearLayout.VISIBLE);
+            listOfPrevThreatsShow = true;
+        }
+    }
+
+
 }
+
