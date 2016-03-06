@@ -3,6 +3,13 @@ package ca.bcit.heimdallr.ending_violence;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;    
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -27,9 +34,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -60,6 +79,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    private LoginActivity thisClass = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,10 +206,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            //mAuthTask.execute((Void) null);
-            Intent intent = new Intent(this,HomeActivity.class);
-            startActivity(intent);
+            mAuthTask.execute((Void) null);
+
         }
+    }
+
+    MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+    OkHttpClient client = new OkHttpClient();
+
+    String post(String url, String json) throws IOException {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    String bowlingJson(String email, String password) {
+        //System.out.println(email + " " + password);
+        return "{\"email\":\"" + email + "\","
+                + "\"password\":\"" + password + "\"}";
     }
 
     private boolean isEmailValid(String email) {
@@ -301,6 +341,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mEmail;
         private final String mPassword;
+        SharedPreferences sharedpreferences;
+
 
         UserLoginTask(String email, String password) {
             mEmail = email;
@@ -310,20 +352,29 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
+            String json = bowlingJson(mEmail, mPassword);
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                String response = post("https://quiet-falls-67309.herokuapp.com/api/auth/login", json);
+                JSONObject mainObj = new JSONObject(response);
+                System.out.println(response);
+                System.out.println(mainObj.toString());
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                int codeVal = (int) mainObj.get("code");
+                String tokenVal = "";
+                if(codeVal == 200) {
+                    tokenVal = (String) mainObj.get("token");
+                    sharedpreferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString("tokenVal", tokenVal);
+                    editor.commit();
+                    Intent intent = new Intent(thisClass, HomeActivity.class);
+                    startActivity(intent);
+                } else {
+                    //Toast.makeText(thisClass, (String) mainObj.get("message"),
+                      //      Toast.LENGTH_LONG).show();
                 }
+            } catch(Exception e){
+
             }
 
             // TODO: register the new account here.
