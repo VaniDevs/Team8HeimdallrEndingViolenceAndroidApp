@@ -32,16 +32,9 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -144,7 +137,7 @@ public class HomeActivity extends AppCompatActivity {
             coordinate_textview = (TextView) findViewById(R.id.coord);
             coordinate_textview.setText(loc.getLatitude() + " " + loc.getLongitude());
             Intent intent = new Intent(this, CameraActivity.class);
-            new IncidentsReport(loc.getLatitude(),loc.getLongitude()).execute((Void) null);
+            new IncidentsReport(loc.getLatitude(), loc.getLongitude()).execute((Void) null);
             startActivity(intent);
         }catch(Exception e){
             ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
@@ -267,76 +260,12 @@ public class HomeActivity extends AppCompatActivity {
         String PhoneNumberString = PhoneNumber.getText().toString();
 
         try {
-            new fix(FirstNameString,LastNameString,AddressString, PhoneNumberString).execute((Void) null);
+            new updateProfile(FirstNameString,LastNameString,AddressString, PhoneNumberString).execute((Void) null);
             determineShow();
         } catch(Exception e){
 
         }
 
-    }
-
-    public class fix extends AsyncTask<Void, Void, Void> {
-        String response;
-        String firstNameAsyncString;
-        String lastNameAsyncString;
-        String address;
-        String phoneNumber;
-
-        public fix(String _firstNameAsyncString, String _lastNameAsyncString, String _address, String _phoneNumber){
-            firstNameAsyncString = _firstNameAsyncString;
-            lastNameAsyncString = _lastNameAsyncString;
-            address = _address;
-            phoneNumber = _phoneNumber;
-        }
-        protected Void doInBackground(Void... params){
-            try {
-                SharedPreferences settings;
-                String text;
-                String json = bowlingJson(firstNameAsyncString, lastNameAsyncString, address, phoneNumber);
-                System.out.println(json + "hi");
-
-                settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
-                text = settings.getString("tokenVal", null);
-                System.out.println("https://quiet-falls-67309.herokuapp.com/api/profile" +
-                        "?api_token=" + text);
-
-                response = post("https://quiet-falls-67309.herokuapp.com/api/profile" +
-                        "?api_token=" + text, json);
-                System.out.println(response + "RESPONSE");
-
-            } catch (Exception e){
-                System.out.println("ERROR");
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void v) {
-
-        }
-    }
-
-    MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-    OkHttpClient okHttpClient = new OkHttpClient();
-
-    String post(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(JSON, json);
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        Response response = okHttpClient.newCall(request).execute();
-        return response.body().string();
-    }
-
-    String bowlingJson(String firstName, String lastName, String addres, String phoneNumber) {
-
-        return "{\"first_name\":\"" + firstName + "\","
-                + "\"last_name\":\"" + lastName + "\","
-                + "\"address\":\"" + addres + "\","
-                + "\"phone\":\"" + phoneNumber + "\""
-                + "}";
     }
 
     public void LoadEdit(View v){
@@ -359,6 +288,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
     public class IncidentsReport extends AsyncTask<Void, Void, Void> {
         String response;
         double latitude;
@@ -372,7 +302,7 @@ public class HomeActivity extends AppCompatActivity {
             try {
                 SharedPreferences settings;
                 String text;
-                String json = jsonIncidents(latitude, longtitude);
+                String json = APIRequest.jsonIncidents(latitude, longtitude);
                 System.out.println(json + " hi");
 
                 settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
@@ -380,7 +310,7 @@ public class HomeActivity extends AppCompatActivity {
                 System.out.println("https://quiet-falls-67309.herokuapp.com/api/incident" +
                         "?api_token=" + text);
 
-                response = post("https://quiet-falls-67309.herokuapp.com/api/incident" +
+                response = APIRequest.post("https://quiet-falls-67309.herokuapp.com/api/incident" +
                         "?api_token=" + text, json);
                 System.out.println(response + "RESPONSE");
 
@@ -396,11 +326,44 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    String jsonIncidents(double locationX, double locationY) {
+    public class updateProfile extends AsyncTask<Void, Void, Void> {
+        String response;
+        String firstNameAsyncString;
+        String lastNameAsyncString;
+        String address;
+        String phoneNumber;
 
-        return "{\"location\":\"" + locationY + " " +  locationX + "\""
-                + "}";
+        public updateProfile(String _firstNameAsyncString, String _lastNameAsyncString, String _address, String _phoneNumber) {
+            firstNameAsyncString = _firstNameAsyncString;
+            lastNameAsyncString = _lastNameAsyncString;
+            address = _address;
+            phoneNumber = _phoneNumber;
+        }
+
+        protected Void doInBackground(Void... params) {
+            try {
+                SharedPreferences settings;
+                String text;
+                String json = APIRequest.updateProfileJSON(firstNameAsyncString, lastNameAsyncString, address, phoneNumber);
+                System.out.println(json + "hi");
+
+                settings = getSharedPreferences("Preferences", Context.MODE_PRIVATE); //1
+                text = settings.getString("tokenVal", null);
+                System.out.println("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text);
+
+                response = APIRequest.post("https://quiet-falls-67309.herokuapp.com/api/profile" +
+                        "?api_token=" + text, json);
+                System.out.println(response + "RESPONSE");
+
+            } catch (Exception e) {
+                System.out.println("ERROR");
+            }
+            return null;
+        }
     }
+
+
 
 
 }
