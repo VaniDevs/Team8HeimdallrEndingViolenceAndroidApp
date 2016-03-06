@@ -2,7 +2,6 @@ package ca.bcit.heimdallr.ending_violence;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 
 import java.io.IOException;
@@ -48,4 +47,5 @@ public class APIRequest extends AppCompatActivity{
         return "{\"location\":\"" + locationY + " " +  locationX + "\""
                 + "}";
     }
+
 }
