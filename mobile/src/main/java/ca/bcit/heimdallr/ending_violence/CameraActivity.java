@@ -1,16 +1,14 @@
 package ca.bcit.heimdallr.ending_violence;
 
 import android.content.Intent;
-import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -24,9 +22,7 @@ public class CameraActivity extends AppCompatActivity {
     private Uri fileUri;
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 
-
     public static CameraActivity ActivityContext = null;
-    public static TextView output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
